@@ -16,6 +16,7 @@
 		14AFB12D2B66AEBC0072E32A /* PostGetRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFB12C2B66AEBC0072E32A /* PostGetRequestTests.swift */; };
 		14AFB1372B66AEBC0072E32A /* PostGetRequestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFB1362B66AEBC0072E32A /* PostGetRequestUITests.swift */; };
 		14AFB1392B66AEBC0072E32A /* PostGetRequestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFB1382B66AEBC0072E32A /* PostGetRequestUITestsLaunchTests.swift */; };
+		14AFB1462B66AF730072E32A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFB1452B66AF730072E32A /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		14AFB1322B66AEBC0072E32A /* PostGetRequestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PostGetRequestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AFB1362B66AEBC0072E32A /* PostGetRequestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGetRequestUITests.swift; sourceTree = "<group>"; };
 		14AFB1382B66AEBC0072E32A /* PostGetRequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGetRequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		14AFB1452B66AF730072E32A /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +104,9 @@
 				14AFB1152B66AEBA0072E32A /* AppDelegate.swift */,
 				14AFB1172B66AEBA0072E32A /* SceneDelegate.swift */,
 				14AFB1192B66AEBA0072E32A /* ViewController.swift */,
-				14AFB11B2B66AEBA0072E32A /* Main.storyboard */,
+				14AFB1452B66AF730072E32A /* ImageViewController.swift */,
 				14AFB11E2B66AEBB0072E32A /* Assets.xcassets */,
+				14AFB11B2B66AEBA0072E32A /* Main.storyboard */,
 				14AFB1202B66AEBB0072E32A /* LaunchScreen.storyboard */,
 				14AFB1232B66AEBB0072E32A /* Info.plist */,
 			);
@@ -260,6 +263,7 @@
 			files = (
 				14AFB11A2B66AEBA0072E32A /* ViewController.swift in Sources */,
 				14AFB1162B66AEBA0072E32A /* AppDelegate.swift in Sources */,
+				14AFB1462B66AF730072E32A /* ImageViewController.swift in Sources */,
 				14AFB1182B66AEBA0072E32A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

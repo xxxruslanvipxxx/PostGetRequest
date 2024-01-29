@@ -7,13 +7,22 @@
 
 import UIKit
 
+let segueString = "imageVIewControllerSegue"
+
 class ViewController: UIViewController {
 
+    @IBAction func getRequest(_ sender: Any) {
+        
+    }
+    
+    @IBAction func postRequest(_ sender: Any) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
-
 
 }
 
