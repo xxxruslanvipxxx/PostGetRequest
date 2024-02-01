@@ -8,7 +8,7 @@
 import Foundation
 
 struct WebsiteDescription: Decodable {
-    let websiteName: String
-    let websiteDescription: String
+    let websiteName: String?
+    let websiteDescription: String?
     let courses: [Course]
 }
