@@ -17,24 +17,25 @@ class TableViewController: UITableViewController {
 
     func fetchData() {
 //        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_course"
-        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
+//        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
+        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_website_description"
         
         guard let url = URL(string: jsonUrlString) else {return}
         
         let session = URLSession.shared
         session.dataTask(with: url) { data, response, error in
             guard let data = data else {return}
-            if let courses = self.parseData(with: data) {
-                print(courses)
+            if let websiteDescription = self.parseData(with: data) {
+                print(websiteDescription)
             }
         }.resume()
     }
     
-    func parseData(with data: Data) -> [Course]? {
+    func parseData(with data: Data) -> WebsiteDescription? {
         let decoder = JSONDecoder()
         do {
-            let courses = try decoder.decode([Course].self, from: data)
-            return courses
+            let websiteDescription = try decoder.decode(WebsiteDescription.self, from: data)
+            return websiteDescription
         } catch let error {
             print(error.localizedDescription)
         }
