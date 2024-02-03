@@ -9,14 +9,17 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    private var courses = [Course]()
+    private var courseName: String?
+    private var courseURL: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         fetchData()
     }
 
-    func fetchData() {
-//        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_course"
+    private func fetchData() {
         let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
         
         guard let url = URL(string: jsonUrlString) else {return}
@@ -25,12 +28,15 @@ class TableViewController: UITableViewController {
         session.dataTask(with: url) { data, response, error in
             guard let data = data else {return}
             if let courses = self.parseData(with: data) {
-                print(courses)
+                self.courses = courses
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }.resume()
     }
     
-    func parseData(with data: Data) -> [Course]? {
+    private func parseData(with data: Data) -> [Course]? {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
@@ -42,66 +48,74 @@ class TableViewController: UITableViewController {
         return nil
     }
     
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+    private func configureCell(cell: CourseCell, indexPath: IndexPath) {
+        let course = courses[indexPath.row]
+        cell.courseName.text = course.name
+        
+        if let numberOfLessons = course.numberOfLessons {
+            cell.numberOfLessons.text = "Number of lessons: \(numberOfLessons)"
+        }
+        if let numberOfTests = course.numberOfTests {
+            cell.numberOfTests.text = "Number of tests: \(numberOfTests)"
+        }
+        DispatchQueue.global().async {
+            guard let imageUrlString = course.imageUrl, let url = URL(string: imageUrlString) else {return}
+            guard let imageData = try? Data(contentsOf: url) else {return}
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)
+                cell.courseImage.image = image
+            }
+        }
+    
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-//        
-//
-//        return cell
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+        let webViewController = segue.destination as! WebViewController
 
+        webViewController.selectedCourse = courseName
+        if let url = courseURL {
+            webViewController.courseURL = url
+        }
+    }
+    
+}
+
+// MARK: - Table view data source
+extension TableViewController {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return courses.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "courseCell") as! CourseCell
+        configureCell(cell: cell, indexPath: indexPath)
+        return cell
+    }
+
+}
+
+
+//MARK: - Table view delegate
+extension TableViewController {
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let course = courses[indexPath.row]
+        
+        courseName = course.name
+        courseURL = course.link
+        
+        performSegue(withIdentifier: "showWebView", sender: self)
+        
+    }
+    
 }
