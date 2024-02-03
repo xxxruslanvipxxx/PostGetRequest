@@ -195,7 +195,6 @@
                                     <outlet property="courseName" destination="cRK-Ox-kDL" id="7VW-KN-PQh"/>
                                     <outlet property="numberOfLessons" destination="S2q-nc-CH6" id="lXS-wp-cdV"/>
                                     <outlet property="numberOfTests" destination="3rL-9k-SPF" id="VfL-YA-C4c"/>
-                                    <segue destination="k8r-Sa-mBr" kind="show" id="tTh-gR-XIa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -205,6 +204,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Sj6-yT-4ND"/>
+                    <connections>
+                        <segue destination="k8r-Sa-mBr" kind="show" identifier="showWebView" id="ZHL-ft-E5E"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ND9-Mu-jSW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -226,8 +228,8 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lBM-fu-uQu">
-                                <rect key="frame" x="0.0" y="103" width="393" height="4"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="lBM-fu-uQu">
+                                <rect key="frame" x="0.0" y="102" width="393" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                         </subviews>
