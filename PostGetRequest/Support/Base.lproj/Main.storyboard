@@ -152,40 +152,49 @@
                                                 <constraint firstAttribute="height" constant="130" id="LCG-Qp-Zg6"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Course" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRK-Ox-kDL">
-                                            <rect key="frame" x="158" y="11" width="123.33333333333331" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRK-Ox-kDL">
+                                            <rect key="frame" x="158" y="11" width="215" height="19"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Name of Course">
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name="Arial-BoldMT"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of tests:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2q-nc-CH6">
-                                            <rect key="frame" x="158" y="98" width="128" height="21"/>
+                                            <rect key="frame" x="158" y="98" width="215" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of lessons:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rL-9k-SPF">
-                                            <rect key="frame" x="158" y="69" width="148" height="21"/>
+                                            <rect key="frame" x="158" y="69" width="215" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="S2q-nc-CH6" secondAttribute="trailing" constant="87" id="0P2-Su-0dA"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="3rL-9k-SPF" secondAttribute="trailing" constant="67" id="GyW-LU-BZM"/>
                                         <constraint firstItem="cRK-Ox-kDL" firstAttribute="leading" secondItem="f8l-Np-7WZ" secondAttribute="trailing" constant="8" symbolic="YES" id="IFO-jb-vFD"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="cRK-Ox-kDL" secondAttribute="trailing" constant="91.666666666666686" id="Izw-oH-QNB"/>
                                         <constraint firstItem="S2q-nc-CH6" firstAttribute="top" secondItem="3rL-9k-SPF" secondAttribute="bottom" constant="8" symbolic="YES" id="J09-vC-P0q"/>
+                                        <constraint firstItem="3rL-9k-SPF" firstAttribute="trailing" secondItem="p4Z-DV-eIS" secondAttribute="trailingMargin" id="QYC-fg-AJ8"/>
                                         <constraint firstItem="S2q-nc-CH6" firstAttribute="leading" secondItem="f8l-Np-7WZ" secondAttribute="trailing" constant="8" symbolic="YES" id="UYX-fj-0zG"/>
                                         <constraint firstItem="3rL-9k-SPF" firstAttribute="leading" secondItem="f8l-Np-7WZ" secondAttribute="trailing" constant="8" symbolic="YES" id="a8c-3W-nZM"/>
                                         <constraint firstItem="cRK-Ox-kDL" firstAttribute="top" secondItem="p4Z-DV-eIS" secondAttribute="topMargin" id="acK-Ro-O8L"/>
                                         <constraint firstItem="f8l-Np-7WZ" firstAttribute="leading" secondItem="p4Z-DV-eIS" secondAttribute="leading" constant="20" symbolic="YES" id="i5t-GA-ouq"/>
+                                        <constraint firstItem="S2q-nc-CH6" firstAttribute="trailing" secondItem="p4Z-DV-eIS" secondAttribute="trailingMargin" id="kAW-jT-hCp"/>
                                         <constraint firstItem="S2q-nc-CH6" firstAttribute="bottom" secondItem="p4Z-DV-eIS" secondAttribute="bottomMargin" id="l22-JR-33N"/>
+                                        <constraint firstItem="cRK-Ox-kDL" firstAttribute="trailing" secondItem="p4Z-DV-eIS" secondAttribute="trailingMargin" id="wlo-Xm-OJn"/>
                                         <constraint firstItem="f8l-Np-7WZ" firstAttribute="top" secondItem="p4Z-DV-eIS" secondAttribute="top" id="zWs-na-8Ls"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="courseImage" destination="f8l-Np-7WZ" id="J36-qb-auB"/>
+                                    <outlet property="courseName" destination="cRK-Ox-kDL" id="7VW-KN-PQh"/>
+                                    <outlet property="numberOfLessons" destination="S2q-nc-CH6" id="lXS-wp-cdV"/>
+                                    <outlet property="numberOfTests" destination="3rL-9k-SPF" id="VfL-YA-C4c"/>
                                     <segue destination="k8r-Sa-mBr" kind="show" id="tTh-gR-XIa"/>
                                 </connections>
                             </tableViewCell>
