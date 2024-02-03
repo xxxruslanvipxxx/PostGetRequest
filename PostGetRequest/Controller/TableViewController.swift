@@ -32,6 +32,7 @@ class TableViewController: UITableViewController {
     
     func parseData(with data: Data) -> [Course]? {
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
             let courses = try decoder.decode([Course].self, from: data)
             return courses

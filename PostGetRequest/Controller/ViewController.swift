@@ -7,8 +7,6 @@
 
 import UIKit
 
-let segueString = "imageVIewControllerSegue"
-
 class ViewController: UIViewController {
 
     @IBAction func getRequest(_ sender: Any) {
