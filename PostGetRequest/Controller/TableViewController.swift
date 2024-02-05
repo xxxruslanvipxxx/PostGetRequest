@@ -7,6 +7,8 @@
 
 import UIKit
 
+private let url = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
+
 class TableViewController: UITableViewController {
 
     private var courses = [Course]()
@@ -20,32 +22,13 @@ class TableViewController: UITableViewController {
     }
 
     private func fetchData() {
-        let jsonUrlString = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
         
-        guard let url = URL(string: jsonUrlString) else {return}
-        
-        let session = URLSession.shared
-        session.dataTask(with: url) { data, response, error in
-            guard let data = data else {return}
-            if let courses = self.parseData(with: data) {
-                self.courses = courses
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+        NetworkManager().fetchData(url: url) { courses in
+            self.courses = courses
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-        }.resume()
-    }
-    
-    private func parseData(with data: Data) -> [Course]? {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            let courses = try decoder.decode([Course].self, from: data)
-            return courses
-        } catch let error {
-            print(error.localizedDescription)
         }
-        return nil
     }
     
     private func configureCell(cell: CourseCell, indexPath: IndexPath) {

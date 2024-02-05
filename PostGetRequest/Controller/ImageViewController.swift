@@ -7,6 +7,8 @@
 
 import UIKit
 
+private let url = "https://thispersondoesnotexist.com"
+
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -23,18 +25,11 @@ class ImageViewController: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        guard let url = URL(string: "https://thispersondoesnotexist.com")
-        else { return }
-        
-        let session = URLSession.shared
-        session.dataTask(with: url) { data, response, error in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.imageView.image = image
-                }
-            }
-        }.resume()
+        NetworkManager.downloadImage(url) { data in
+            let image = UIImage(data: data)
+            self.activityIndicator.stopAnimating()
+            self.imageView.image = image
+        }
     }
     
 }
