@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pBG-70-20f">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -150,8 +150,9 @@
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="tf4-Zk-vBp" customClass="CollectionViewCell" customModule="PostGetRequest" customModuleProvider="target">
                                 <rect key="frame" x="26.666666666666668" y="40" width="340" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37I-GA-0Wu">
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="37I-GA-0Wu">
                                     <rect key="frame" x="0.0" y="0.0" width="340" height="100"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aKC-YY-VGN">
                                             <rect key="frame" x="0.0" y="0.0" width="340" height="100"/>
@@ -169,15 +170,14 @@
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
-                                <constraints>
-                                    <constraint firstItem="37I-GA-0Wu" firstAttribute="top" secondItem="tf4-Zk-vBp" secondAttribute="topMargin" constant="-8" id="gdZ-ZY-stA"/>
-                                    <constraint firstItem="37I-GA-0Wu" firstAttribute="leading" secondItem="tf4-Zk-vBp" secondAttribute="leadingMargin" constant="-8" id="noT-Zw-3LQ"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="nameLabel" destination="aKC-YY-VGN" id="NIv-xx-KsF"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -187,8 +187,8 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="DL8-a6-SNh"/>
                     <connections>
-                        <segue destination="qLB-3W-Bf7" kind="show" id="UlK-UI-oFd"/>
-                        <segue destination="nc6-Fz-hpi" kind="show" id="o7g-xl-PKM"/>
+                        <segue destination="qLB-3W-Bf7" kind="show" identifier="showImageSegue" id="UlK-UI-oFd"/>
+                        <segue destination="nc6-Fz-hpi" kind="show" identifier="showCoursesSegue" id="o7g-xl-PKM"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wgb-bf-sRF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
