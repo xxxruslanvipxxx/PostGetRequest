@@ -132,7 +132,7 @@
             </objects>
             <point key="canvasLocation" x="3422.1374045801526" y="738.73239436619724"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Controls-->
         <scene sceneID="N5T-Cf-2qB">
             <objects>
                 <collectionViewController id="ON1-bq-dOw" customClass="MainViewController" customModule="PostGetRequest" customModuleProvider="target" sceneMemberID="viewController">
@@ -147,7 +147,7 @@
                             <inset key="sectionInset" minX="0.0" minY="40" maxX="0.0" maxY="40"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="tf4-Zk-vBp" customClass="CollectionViewCell" customModule="PostGetRequest" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="tf4-Zk-vBp" customClass="CollectionViewCell" customModule="PostGetRequest" customModuleProvider="target">
                                 <rect key="frame" x="26.666666666666668" y="40" width="340" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="37I-GA-0Wu">
@@ -185,7 +185,7 @@
                             <outlet property="delegate" destination="ON1-bq-dOw" id="5ge-iw-sEe"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="DL8-a6-SNh"/>
+                    <navigationItem key="navigationItem" title="Controls" id="dE5-f2-24y"/>
                     <connections>
                         <segue destination="qLB-3W-Bf7" kind="show" identifier="showImageSegue" id="UlK-UI-oFd"/>
                         <segue destination="nc6-Fz-hpi" kind="show" identifier="showCoursesSegue" id="o7g-xl-PKM"/>
@@ -195,7 +195,7 @@
             </objects>
             <point key="canvasLocation" x="1686.2595419847328" y="279.57746478873241"/>
         </scene>
-        <!--Image View Controller-->
+        <!--This person does not exist.-->
         <scene sceneID="wCg-15-Og8">
             <objects>
                 <viewController id="qLB-3W-Bf7" customClass="ImageViewController" customModule="PostGetRequest" customModuleProvider="target" sceneMemberID="viewController">
@@ -220,7 +220,7 @@
                             <constraint firstItem="uIA-Th-ETK" firstAttribute="top" secondItem="hi3-Ki-eZQ" secondAttribute="top" id="lyd-Qc-b40"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="muU-2y-HEl"/>
+                    <navigationItem key="navigationItem" title="This person does not exist." id="muU-2y-HEl"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Bkk-cV-aHe" id="kSP-s4-aun"/>
                         <outlet property="imageView" destination="uIA-Th-ETK" id="gSl-lp-IfW"/>
