@@ -92,10 +92,10 @@ class NetworkManager {
         return nil
     }
     
-    func uploadImage(url: String) {
+    static func uploadImage(imageName: String, url: String) {
         
-        let image = UIImage(named: "default")!
-        let httpHeaders = ["Autorization": "Client-ID bc172cceefa4123"]
+        guard let image = UIImage(named: imageName) else { return }
+        let httpHeaders = ["Authorization": "Client-ID bc172cceefa4123"]
         guard let imageProperties = ImageProperties(withImage: image, forKey: "image") else { return }
         
         guard let url = URL(string: url) else { return }
@@ -112,6 +112,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data)
+                    print(json)
                 } catch {
                     print(error.localizedDescription)
                 }
