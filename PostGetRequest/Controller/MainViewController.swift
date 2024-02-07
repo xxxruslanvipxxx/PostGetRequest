@@ -24,16 +24,43 @@ enum UserActions: String, CaseIterable {
 class MainViewController: UICollectionViewController {
 
     let userActions = UserActions.allCases
+    private var alert: UIAlertController!
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    private func showAlert() {
+        
+        alert = UIAlertController(title: "Downloading...", message: "0%", preferredStyle: .alert)
+        
+        let height = NSLayoutConstraint(item: alert.view!,
+                                        attribute: .height,
+                                        relatedBy: .equal,
+                                        toItem: nil,
+                                        attribute: .notAnAttribute,
+                                        multiplier: 0,
+                                        constant: 170)
+        alert.view.addConstraint(height)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(cancelAction)
+        present(alert, animated: true) {
+            // setup UIActivityIndicator
+            let size = CGSize(width: 40, height: 40)
+            let point = CGPoint(x: self.alert.view.frame.width / 2 - size.width / 2,
+                                y: self.alert.view.frame.height / 2 - size.height / 2)
+            let activityIndicator = UIActivityIndicatorView(frame: CGRect(origin: point, size: size))
+            activityIndicator.startAnimating()
+            self.alert.view.addSubview(activityIndicator)
+            
+            // setup UIProgressView
+            let progressView = UIProgressView(frame: CGRect(x: 0,
+                                                           y: self.alert.view.frame.height - 44,
+                                                           width: self.alert.view.frame.width,
+                                                           height: 3))
+            progressView.progress = 0.5
+            self.alert.view.addSubview(progressView)
+            
+        }
+        
     }
-    */
 
     // MARK: UICollectionViewDataSource
     
@@ -69,7 +96,7 @@ class MainViewController: UICollectionViewController {
         case .uploadImage:
             NetworkManager.uploadImage(imageName: assetImageName, url: uploadUrl)
         case .downloadFile:
-            print("download file")
+            showAlert()
         }
     }
 
