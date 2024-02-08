@@ -8,7 +8,7 @@
 //import UIKit
 import UIKit
 
-class NetworkManager {
+final class NetworkManager {
     
     static func downloadImage(_ url: String, completion: @escaping (Data) -> Void) {
         

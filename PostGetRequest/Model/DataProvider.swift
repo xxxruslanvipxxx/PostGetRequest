@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DataProvider: NSObject {
+final class DataProvider: NSObject {
 
     private var downloadTask: URLSessionDownloadTask!
     var fileLocation: ((URL)->())?
@@ -15,8 +15,9 @@ class DataProvider: NSObject {
     
     private lazy var bgSession: URLSession = {
         let config = URLSessionConfiguration.background(withIdentifier: "rusl.PostGetRequest")
-//        config.isDiscretionary = true
-        config.sessionSendsLaunchEvents = true
+        config.isDiscretionary = true // system choose optimal time to start task (false by default)
+        config.waitsForConnectivity = true // session wait for network connection  (true by default)
+        config.sessionSendsLaunchEvents = true // allows session to launch app in background
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
