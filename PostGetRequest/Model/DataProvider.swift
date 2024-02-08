@@ -21,11 +21,15 @@ class DataProvider: NSObject {
     }()
     
     func startDownload() {
-        guard let url = URL(string: "https://speed.hetzner.de/100MB.bin") else { return }
-        downloadTask = bgSession.downloadTask(with: url)
-        downloadTask.earliestBeginDate = Date().addingTimeInterval(3)
-        downloadTask.countOfBytesClientExpectsToSend = 512
-        downloadTask.countOfBytesClientExpectsToReceive = 100 * 1024 * 1024
+
+        if let url = URL(string: "https://singapore.downloadtestfile.com/100MB.bin") {
+            downloadTask = bgSession.downloadTask(with: url)
+            downloadTask.earliestBeginDate = Date().addingTimeInterval(3)
+            downloadTask.countOfBytesClientExpectsToSend = 512
+            downloadTask.countOfBytesClientExpectsToReceive = 100 * 1024 * 1024
+            downloadTask.resume()
+        }
+        
     }
     
     func stopDownload() {
@@ -56,19 +60,19 @@ extension DataProvider: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         print("Did finish downloading: \(location.absoluteString)")
         
-        DispatchQueue.main.async {
-            self.fileLocation?(location)
+        DispatchQueue.main.async { [weak self] in
+            self?.fileLocation?(location)
         }
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         guard totalBytesExpectedToWrite != NSURLSessionTransferSizeUnknown else { return }
         
-        let progress = Double(totalBytesWritten / totalBytesExpectedToWrite)
+        let progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
         print("Download progress: \(progress)")
         
-        DispatchQueue.main.async {
-            self.onProgress?(progress)
+        DispatchQueue.main.async { [weak self] in
+            self?.onProgress?(progress)
         }
     }
 }
