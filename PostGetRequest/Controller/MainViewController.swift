@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 private let reuseIdentifier = "Cell"
 private let url = "https://jsonplaceholder.typicode.com/posts"
@@ -25,6 +26,22 @@ class MainViewController: UICollectionViewController {
 
     let userActions = UserActions.allCases
     private var alert: UIAlertController!
+    private let dataProvider = DataProvider()
+    private var filePath: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        registerForNotification()
+        
+        dataProvider.fileLocation = { location in
+            print("Download finished: \(location.absoluteString)")
+            self.filePath = location.absoluteString
+            self.alert.dismiss(animated: true)
+            self.postNotification()
+        }
+        
+    }
     
     private func showAlert() {
         
@@ -39,7 +56,10 @@ class MainViewController: UICollectionViewController {
                                         constant: 170)
         alert.view.addConstraint(height)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { action in
+            self.dataProvider.stopDownload()
+        }
+        
         alert.addAction(cancelAction)
         present(alert, animated: true) {
             // setup UIActivityIndicator
@@ -55,7 +75,10 @@ class MainViewController: UICollectionViewController {
                                                            y: self.alert.view.frame.height - 44,
                                                            width: self.alert.view.frame.width,
                                                            height: 3))
-            progressView.progress = 0.5
+            self.dataProvider.onProgress = { progress in
+                progressView.progress = Float(progress)
+                self.alert.message = String(Int(progress * 100)) + "%"
+            }
             self.alert.view.addSubview(progressView)
             
         }
@@ -97,7 +120,33 @@ class MainViewController: UICollectionViewController {
             NetworkManager.uploadImage(imageName: assetImageName, url: uploadUrl)
         case .downloadFile:
             showAlert()
+            dataProvider.startDownload()
         }
     }
 
+}
+
+extension MainViewController {
+    
+    private func registerForNotification() {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in
+            
+        }
+        
+    }
+    
+    private func postNotification() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Download is complete!"
+        content.body = "Your background transfer has completed. File path: \(filePath!)"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "TransferCompleted", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
+        
+    }
 }
