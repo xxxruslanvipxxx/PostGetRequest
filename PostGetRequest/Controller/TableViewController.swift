@@ -14,14 +14,8 @@ class TableViewController: UITableViewController {
     private var courses = [Course]()
     private var courseName: String?
     private var courseURL: String?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        fetchData()
-    }
-
-    private func fetchData() {
+    func fetchData() {
         
         NetworkManager().fetchData(url: url) { courses in
             self.courses = courses
