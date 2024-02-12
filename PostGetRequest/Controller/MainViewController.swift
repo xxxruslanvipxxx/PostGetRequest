@@ -43,6 +43,19 @@ class MainViewController: UICollectionViewController {
         }
         
     }
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let coursesVC = segue.destination as? TableViewController else {return}
+        
+        switch segue.identifier {
+        case "showCoursesSegue":
+            coursesVC.fetchData()
+        case "showAlamCoursesSegue":
+            print("alamofire")
+        default:
+            break
+        }
+    }
     
     private func showAlert() {
         
@@ -123,7 +136,7 @@ class MainViewController: UICollectionViewController {
             showAlert()
             dataProvider.startDownload()
         case .ourCoursesAlamofire:
-            print("Our Courses (Alamofire)")
+            performSegue(withIdentifier: "showAlamCoursesSegue", sender: self)
         }
     }
 
