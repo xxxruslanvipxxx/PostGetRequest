@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import Alamofire
+
+class AlamofireNetworkRequest {
+    
+    
+}
