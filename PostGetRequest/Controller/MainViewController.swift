@@ -51,7 +51,7 @@ class MainViewController: UICollectionViewController {
         case "showCoursesSegue":
             coursesVC.fetchData()
         case "showAlamCoursesSegue":
-            print("alamofire")
+            coursesVC.fetchAlamofireData()
         default:
             break
         }
