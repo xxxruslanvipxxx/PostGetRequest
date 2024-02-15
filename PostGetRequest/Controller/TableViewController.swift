@@ -18,8 +18,8 @@ class TableViewController: UITableViewController {
     func fetchData() {
         
         NetworkManager().fetchData(url: url) { courses in
-            self.courses = courses
             DispatchQueue.main.async {
+                self.courses = courses
                 self.tableView.reloadData()
             }
         }
@@ -29,9 +29,7 @@ class TableViewController: UITableViewController {
         
         AlamofireNetworkRequest.sendRequest(withUrl: url) { result in
             self.courses = result
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
     }
