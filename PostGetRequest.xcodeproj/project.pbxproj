@@ -101,10 +101,8 @@
 		142EBC132B6C0F1E00A0BADB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				148A6A2E2B73AD4D00678A45 /* DataProvider.swift */,
 				142EBC0F2B6ACD4A00A0BADB /* Course.swift */,
 				14A94C172B729E2C006533C7 /* ImageProperties.swift */,
-				14B1481B2B7A903C00B06F4D /* AlamofireNetworkRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,7 +130,9 @@
 		142EBC162B6C0F8600A0BADB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				14B1481B2B7A903C00B06F4D /* AlamofireNetworkRequest.swift */,
 				14FED2902B715DB300525093 /* NetworkManager.swift */,
+				148A6A2E2B73AD4D00678A45 /* DataProvider.swift */,
 				14AFB1152B66AEBA0072E32A /* AppDelegate.swift */,
 				14AFB1172B66AEBA0072E32A /* SceneDelegate.swift */,
 				14AFB11E2B66AEBB0072E32A /* Assets.xcassets */,

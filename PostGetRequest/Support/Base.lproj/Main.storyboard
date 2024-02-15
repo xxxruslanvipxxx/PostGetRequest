@@ -190,6 +190,7 @@
                         <segue destination="qLB-3W-Bf7" kind="show" identifier="showImageSegue" id="UlK-UI-oFd"/>
                         <segue destination="nc6-Fz-hpi" kind="show" identifier="showCoursesSegue" id="o7g-xl-PKM"/>
                         <segue destination="nc6-Fz-hpi" kind="show" identifier="showAlamCoursesSegue" id="mlX-oz-lIW"/>
+                        <segue destination="qLB-3W-Bf7" kind="show" identifier="showImageSegueAlamofire" id="l41-8Q-nwH"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wgb-bf-sRF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -251,6 +252,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="l41-8Q-nwH"/>
         <segue reference="mlX-oz-lIW"/>
     </inferredMetricsTieBreakers>
     <resources>

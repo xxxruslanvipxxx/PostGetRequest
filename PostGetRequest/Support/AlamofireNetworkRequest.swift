@@ -41,4 +41,20 @@ class AlamofireNetworkRequest {
 //            
 //        }
     }
+    
+    static func downloadImage(_ url: String, completion: @escaping (Data) -> Void) {
+        
+        AF.request(url)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    completion(data)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        
+    }
+    
 }

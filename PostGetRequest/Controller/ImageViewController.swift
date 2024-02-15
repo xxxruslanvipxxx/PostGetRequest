@@ -16,20 +16,29 @@ class ImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.isHidden = true
+        activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
-        fetchImage()
     }
     
-    private func fetchImage() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+    public func fetchImage() {
         
         NetworkManager.downloadImage(url) { data in
             let image = UIImage(data: data)
             self.activityIndicator.stopAnimating()
             self.imageView.image = image
         }
+        
+    }
+    
+    public func fetchImageAlamofire() {
+        
+        AlamofireNetworkRequest.downloadImage(url) { data in
+            guard let image = UIImage(data: data) else {return}
+            self.activityIndicator.stopAnimating()
+            self.imageView.image = image
+            
+        }
+        
     }
     
 }
