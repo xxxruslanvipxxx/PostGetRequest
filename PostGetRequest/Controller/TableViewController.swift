@@ -8,6 +8,7 @@
 import UIKit
 
 private let url = "https://swiftbook.ru//wp-content/uploads/api/api_courses"
+private let postWithAlamofireUrl = "https://jsonplaceholder.typicode.com/posts"
 
 class TableViewController: UITableViewController {
 
@@ -29,6 +30,15 @@ class TableViewController: UITableViewController {
         
         AlamofireNetworkRequest.sendRequest(withUrl: url) { result in
             self.courses = result
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    public func postRequest() {
+        
+        AlamofireNetworkRequest.postRequest(url: postWithAlamofireUrl) { course in
+            self.courses.append(course)
             self.tableView.reloadData()
         }
         

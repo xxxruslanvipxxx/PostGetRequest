@@ -67,6 +67,23 @@ class AlamofireNetworkRequest {
             }
     }
     
+    static func postRequest(url: String, completion: @escaping (Course) -> Void) {
+        
+        let userData: [String: Any] = ["id": 2, "name": "Network Request", "link": "https://swiftbook.ru/contents/our-first-applications/", "imageUrl": "https://swiftbook.ru/wp-content/uploads/sites/2/2018/08/notifications-course-with-background.png"]
+        
+        AF.request(url, method: .post, parameters: userData).responseDecodable(of: Course.self) { response in
+            guard let stausCode = response.response?.statusCode else {return}
+            print("Status code: \(stausCode)")
+            print(response)
+            switch response.result {
+            case .success(let course):
+                completion(course)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     //MARK: - Another response methods
     
     static func responseString(url: String) {

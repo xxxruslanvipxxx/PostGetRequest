@@ -18,6 +18,7 @@ enum UserActions: String, CaseIterable {
     case downloadLargeImage = "Download Large Image"
     case get = "GET"
     case post = "POST"
+    case postWithAlamofire = "POST (Alamofire)"
     case ourCourses = "Our Courses"
     case uploadImage = "Upload Image"
     case downloadFile = "Download File"
@@ -61,6 +62,8 @@ class MainViewController: UICollectionViewController {
             imageVC?.fetchImage()
         case "showLargeImageSegue":
             imageVC?.downloadImageWithProgress()
+        case "postCourseSegue":
+            coursesVC?.postRequest()
         default:
             break
         }
@@ -139,6 +142,8 @@ class MainViewController: UICollectionViewController {
             NetworkManager.getRequest(url)
         case .post:
             NetworkManager.postRequest(url)
+        case .postWithAlamofire:
+            performSegue(withIdentifier: "postCourseSegue", sender: self)
         case .ourCourses:
             performSegue(withIdentifier: "showCoursesSegue", sender: self)
         case .uploadImage:
