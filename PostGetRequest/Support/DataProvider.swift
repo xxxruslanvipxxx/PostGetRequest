@@ -23,7 +23,7 @@ final class DataProvider: NSObject {
     
     func startDownload() {
 
-        if let url = URL(string: "https://singapore.downloadtestfile.com/100MB.bin") {
+        if let url = URL(string: "https://ash-speed.hetzner.com/100MB.bin") {
             downloadTask = bgSession.downloadTask(with: url)
             downloadTask.earliestBeginDate = Date().addingTimeInterval(3)
             downloadTask.countOfBytesClientExpectsToSend = 512

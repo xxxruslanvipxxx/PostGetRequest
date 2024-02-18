@@ -17,29 +17,14 @@ class AlamofireNetworkRequest {
         AF.request(url)
             .validate()
             .responseDecodable(of: [Course].self) { response in
-            switch response.result {
-            case .success(let res):
-                completion(res)
-            case .failure(let error):
-                print(error.localizedDescription)
+                switch response.result {
+                case .success(let res):
+                    completion(res)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
-        }
         
-//        AF.request(url).responseJSON { response in
-//            
-//            guard let statusCode = response.response?.statusCode else { return }
-//            
-//            print("STATUS CODE: ", statusCode)
-//            
-//            if (200..<300).contains(statusCode) {
-//                let value = response.value
-//                print("VALUE: ", value ?? "nil")
-//            } else {
-//                let error = response.error
-//                print("ERROR: ", error ?? "nil")
-//            }
-//            
-//        }
     }
     
     static func downloadImage(_ url: String, completion: @escaping (Data) -> Void) {
@@ -55,6 +40,44 @@ class AlamofireNetworkRequest {
                 }
             }
         
+    }
+    
+    static func downloadImageWithProgress(_ url: String, completion: @escaping (Data) -> Void) {
+        
+        AF.request(url)
+            .validate()
+            .downloadProgress { progress in
+                print("Total unit count \(progress.totalUnitCount)")
+            }
+    }
+    
+    //MARK: - Another response methods
+    
+    static func responseString(url: String) {
+        // return string
+        AF.request(url)
+            .validate()
+            .responseString { response in
+            switch response.result {
+            case .success(let string):
+                print(string)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    static func response(url: String) {
+        
+        AF.request(url)
+            .validate()
+            .response { response in
+                guard
+                    let data = response.data,
+                    let string = String(data: data, encoding: .utf8) 
+                else {return}
+                print(string)
+            }
     }
     
 }

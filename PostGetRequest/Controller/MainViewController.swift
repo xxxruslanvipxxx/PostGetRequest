@@ -15,6 +15,7 @@ private let assetImageName = "default"
 
 enum UserActions: String, CaseIterable {
     case downloadImage = "Download Image"
+    case downloadLargeImage = "Download Large Image"
     case get = "GET"
     case post = "POST"
     case ourCourses = "Our Courses"
@@ -58,6 +59,8 @@ class MainViewController: UICollectionViewController {
             imageVC?.fetchImageAlamofire()
         case "showImageSegue":
             imageVC?.fetchImage()
+        case "showLargeImageSegue":
+            imageVC?.downloadImageWithProgress()
         default:
             break
         }
@@ -130,6 +133,8 @@ class MainViewController: UICollectionViewController {
         switch action {
         case .downloadImage:
             performSegue(withIdentifier: "showImageSegue", sender: self)
+        case .downloadLargeImage:
+            performSegue(withIdentifier: "showLargeImageSegue", sender: self)
         case .get:
             NetworkManager.getRequest(url)
         case .post:
