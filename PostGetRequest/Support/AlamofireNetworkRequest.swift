@@ -10,6 +10,9 @@ import Alamofire
 
 class AlamofireNetworkRequest {
     
+    static var onProgress: ((Float) -> Void)?
+    static var completed: ((String) -> Void)?
+    
     static func sendRequest(withUrl urlString: String, completion: @escaping ([Course]) -> ()) {
         
         guard let url = URL(string: urlString) else {return}
@@ -47,7 +50,20 @@ class AlamofireNetworkRequest {
         AF.request(url)
             .validate()
             .downloadProgress { progress in
-                print("Total unit count \(progress.totalUnitCount)")
+                print("totalUnitCount: \(progress.totalUnitCount)")
+                print("completedUnitCount: \(progress.completedUnitCount)")
+                print("fractionCompleted: \(progress.fractionCompleted)")
+                print("localizedDescription: \(progress.localizedDescription!)")
+                print("-------------------------------------------")
+                self.onProgress?(Float(progress.fractionCompleted))
+                self.completed?(progress.localizedDescription)
+            }.responseData { response in
+                switch response.result {
+                case .success(let data):
+                    completion(data)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
     }
     

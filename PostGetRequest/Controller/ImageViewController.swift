@@ -8,7 +8,8 @@
 import UIKit
 
 private let url = "https://thispersondoesnotexist.com"
-private let largeImageUrl = "https://unsplash.com/photos/QHmR7iiILec/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzA4MjY5Mzg1fA&force=true"
+private let largeImageUrl = "https://onlinetestcase.com/wp-content/uploads/2023/06/10.4-MB.png"
+
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -47,8 +48,22 @@ class ImageViewController: UIViewController {
     
     public func downloadImageWithProgress() {
         
-        AlamofireNetworkRequest.downloadImageWithProgress(largeImageUrl) { data in
-            
+        AlamofireNetworkRequest.onProgress = { progress in
+            self.progressView.isHidden = false
+            self.progressView.setProgress(progress, animated: true)
+        }
+        
+        AlamofireNetworkRequest.completed = { completed in
+            self.completedLabel.isHidden = false
+            self.completedLabel.text = completed
+        }
+        
+        AlamofireNetworkRequest.downloadImageWithProgress(largeImageUrl) { data  in
+            guard let image = UIImage(data: data) else {return}
+            self.activityIndicator.stopAnimating()
+            self.progressView.isHidden = true
+            self.completedLabel.isHidden = true
+            self.imageView.image = image
         }
     }
     

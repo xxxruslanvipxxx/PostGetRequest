@@ -221,7 +221,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ei0-Ul-BuW">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ei0-Ul-BuW">
                                 <rect key="frame" x="121.66666666666669" y="585.66666666666663" width="150" height="4"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="s6Q-dR-JFq"/>
