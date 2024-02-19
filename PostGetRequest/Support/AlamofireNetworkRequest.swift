@@ -71,7 +71,8 @@ class AlamofireNetworkRequest {
         
         let userData: [String: Any] = ["id": 2, "name": "Network Request", "link": "https://swiftbook.ru/contents/our-first-applications/", "imageUrl": "https://swiftbook.ru/wp-content/uploads/sites/2/2018/08/notifications-course-with-background.png"]
         
-        AF.request(url, method: .post, parameters: userData).responseDecodable(of: Course.self) { response in
+        AF.request(url, method: .post, parameters: userData)
+             .responseDecodable(of: Course.self) { response in
             guard let stausCode = response.response?.statusCode else {return}
             print("Status code: \(stausCode)")
             print(response)
@@ -82,6 +83,24 @@ class AlamofireNetworkRequest {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    static func uploadImage(imageData: Data, url: String) {
+        
+        let httpHeaders = HTTPHeaders(["Authorization": "Client-ID bc172cceefa4123"])
+        
+//        let uploadRequest = 
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imageData, withName: "image")
+        }, to: url, headers: httpHeaders).responseString { response in
+            switch response.result {
+            case .success(let str):
+                print(str)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     //MARK: - Another response methods

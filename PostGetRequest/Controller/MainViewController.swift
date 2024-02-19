@@ -16,14 +16,15 @@ private let assetImageName = "default"
 enum UserActions: String, CaseIterable {
     case downloadImage = "Download Image"
     case downloadLargeImage = "Download Large Image"
+    case responseData = "Download Image (Alamofire)"
     case get = "GET"
     case post = "POST"
     case postWithAlamofire = "POST (Alamofire)"
     case ourCourses = "Our Courses"
-    case uploadImage = "Upload Image"
-    case downloadFile = "Download File"
     case ourCoursesAlamofire = "Our Courses (Alamofire)"
-    case responseData = "Download Image (Alamofire)"
+    case uploadImage = "Upload Image"
+    case uploadImageAlamofire = "Upload Image (Alamofire)"
+    case downloadFile = "Download File"
 }
 
 class MainViewController: UICollectionViewController {
@@ -155,6 +156,11 @@ class MainViewController: UICollectionViewController {
             performSegue(withIdentifier: "showAlamCoursesSegue", sender: self)
         case .responseData:
             performSegue(withIdentifier: "showImageSegueAlamofire", sender: self)
+        case .uploadImageAlamofire:
+            guard let image = UIImage(named: assetImageName),
+                    let data = image.pngData()
+            else {return}
+            AlamofireNetworkRequest.uploadImage(imageData: data, url: uploadUrl)
         }
     }
 
