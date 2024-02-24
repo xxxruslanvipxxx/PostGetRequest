@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         bgSessionCompletionHandler = completionHandler
         
+    }
+    
+    //MARK: Facebook SDK init methods
+    func application(_ application: UIApplication, 
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+            ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+            return true
     }
 
 }

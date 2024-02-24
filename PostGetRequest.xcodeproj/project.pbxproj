@@ -24,6 +24,10 @@
 		14AFB1462B66AF730072E32A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFB1452B66AF730072E32A /* ImageViewController.swift */; };
 		14B1481A2B7A7DC500B06F4D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 14B148192B7A7DC500B06F4D /* Alamofire */; };
 		14B1481C2B7A903C00B06F4D /* AlamofireNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1481B2B7A903C00B06F4D /* AlamofireNetworkRequest.swift */; };
+		14FEA5F62B8675FF003D120D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FEA5F52B8675FF003D120D /* LoginViewController.swift */; };
+		14FEA5FA2B868803003D120D /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 14FEA5F92B868803003D120D /* FacebookCore */; };
+		14FEA5FC2B868803003D120D /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 14FEA5FB2B868803003D120D /* FacebookLogin */; };
+		14FEA5FE2B87BA03003D120D /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FEA5FD2B87BA03003D120D /* UserProfileVC.swift */; };
 		14FED28D2B714F1500525093 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FED28C2B714F1500525093 /* MainViewController.swift */; };
 		14FED28F2B714F2800525093 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FED28E2B714F2800525093 /* CollectionViewCell.swift */; };
 		14FED2912B715DB300525093 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FED2902B715DB300525093 /* NetworkManager.swift */; };
@@ -67,6 +71,9 @@
 		14AFB1382B66AEBC0072E32A /* PostGetRequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGetRequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		14AFB1452B66AF730072E32A /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		14B1481B2B7A903C00B06F4D /* AlamofireNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireNetworkRequest.swift; sourceTree = "<group>"; };
+		14FEA5F52B8675FF003D120D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = PostGetRequest/Controller/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
+		14FEA5F72B8678E0003D120D /* PostGetRequest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PostGetRequest.entitlements; sourceTree = "<group>"; };
+		14FEA5FD2B87BA03003D120D /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		14FED28C2B714F1500525093 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		14FED28E2B714F2800525093 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		14FED2902B715DB300525093 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -78,6 +85,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B1481A2B7A7DC500B06F4D /* Alamofire in Frameworks */,
+				14FEA5FA2B868803003D120D /* FacebookCore in Frameworks */,
+				14FEA5FC2B868803003D120D /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +123,8 @@
 				142EBC0B2B6AC3A800A0BADB /* TableViewController.swift */,
 				142EBC092B6AC35300A0BADB /* WebViewController.swift */,
 				14AFB1452B66AF730072E32A /* ImageViewController.swift */,
+				14FEA5F52B8675FF003D120D /* LoginViewController.swift */,
+				14FEA5FD2B87BA03003D120D /* UserProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 		14AFB1142B66AEBA0072E32A /* PostGetRequest */ = {
 			isa = PBXGroup;
 			children = (
+				14FEA5F72B8678E0003D120D /* PostGetRequest.entitlements */,
 				142EBC142B6C0F3500A0BADB /* Controller */,
 				142EBC132B6C0F1E00A0BADB /* Model */,
 				142EBC152B6C0F5D00A0BADB /* View */,
@@ -209,6 +221,8 @@
 			name = PostGetRequest;
 			packageProductDependencies = (
 				14B148192B7A7DC500B06F4D /* Alamofire */,
+				14FEA5F92B868803003D120D /* FacebookCore */,
+				14FEA5FB2B868803003D120D /* FacebookLogin */,
 			);
 			productName = PostGetRequest;
 			productReference = 14AFB1122B66AEBA0072E32A /* PostGetRequest.app */;
@@ -284,6 +298,7 @@
 			mainGroup = 14AFB1092B66AEBA0072E32A;
 			packageReferences = (
 				14B148182B7A7DC500B06F4D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				14FEA5F82B868803003D120D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 14AFB1132B66AEBA0072E32A /* Products */;
 			projectDirPath = "";
@@ -328,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14FEA5F62B8675FF003D120D /* LoginViewController.swift in Sources */,
 				14A94C182B729E2C006533C7 /* ImageProperties.swift in Sources */,
 				14FED28F2B714F2800525093 /* CollectionViewCell.swift in Sources */,
 				14B1481C2B7A903C00B06F4D /* AlamofireNetworkRequest.swift in Sources */,
@@ -335,6 +351,7 @@
 				142EBC102B6ACD4A00A0BADB /* Course.swift in Sources */,
 				14FED2912B715DB300525093 /* NetworkManager.swift in Sources */,
 				142EBC0C2B6AC3A800A0BADB /* TableViewController.swift in Sources */,
+				14FEA5FE2B87BA03003D120D /* UserProfileVC.swift in Sources */,
 				148A6A2F2B73AD4D00678A45 /* DataProvider.swift in Sources */,
 				142EBC0A2B6AC35300A0BADB /* WebViewController.swift in Sources */,
 				142EBC0E2B6AC81700A0BADB /* CourseCell.swift in Sources */,
@@ -520,6 +537,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PostGetRequest/PostGetRequest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -547,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PostGetRequest/PostGetRequest.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -691,6 +710,14 @@
 				minimumVersion = 5.8.1;
 			};
 		};
+		14FEA5F82B868803003D120D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -698,6 +725,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14B148182B7A7DC500B06F4D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		14FEA5F92B868803003D120D /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14FEA5F82B868803003D120D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		14FEA5FB2B868803003D120D /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 14FEA5F82B868803003D120D /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

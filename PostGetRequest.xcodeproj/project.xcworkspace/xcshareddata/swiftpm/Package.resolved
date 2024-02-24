@@ -8,6 +8,15 @@
         "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
         "version" : "5.8.1"
       }
+    },
+    {
+      "identity" : "facebook-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/facebook/facebook-ios-sdk",
+      "state" : {
+        "revision" : "c19607d535864533523d1f437c84035e5fb101cf",
+        "version" : "14.1.0"
+      }
     }
   ],
   "version" : 2
