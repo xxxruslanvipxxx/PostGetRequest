@@ -18,23 +18,36 @@ class LoginViewController: UIViewController {
         return fbLoginButton
     }()
     
+    lazy var fbCustomLoginButton: UIButton = {
+        let fbButton = UIButton(type: .custom)
+        fbButton.backgroundColor = UIColor(red: 59/255, green: 89/255, blue: 153/255, alpha: 1)
+        fbButton.setTitle("Login with Facebook", for: .normal)
+        fbButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        fbButton.setTitleColor(.white, for: .normal)
+        fbButton.frame = CGRect(x: 32,
+                                y: view.frame.height - 242,
+                                width: view.frame.width - 64,
+                                height: 50)
+        fbButton.layer.cornerRadius = 4
+        fbButton.addTarget(self, action: #selector(handleCustomFBLogin), for: .touchUpInside)
+        return fbButton
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         
-        if let token = AccessToken.current, !token.isExpired {
-            print(token.userID)
-            print(AccessToken.isCurrentAccessTokenActive)
-            print(token.expirationDate)
-        }
     }
     
     private func setupViews() {
         view.addSubview(fbLoginButton)
+        view.addSubview(fbCustomLoginButton)
     }
 
 }
+
+//MARK: - Facebook SDK
 
 extension LoginViewController: LoginButtonDelegate {
     
@@ -42,6 +55,8 @@ extension LoginViewController: LoginButtonDelegate {
         if let error = error {
             print(error.localizedDescription)
         }
+        guard AccessToken.isCurrentAccessTokenActive else {return}
+        openMainViewController()
         print("Successfully logged in with facebook...")
     }
     
@@ -49,4 +64,11 @@ extension LoginViewController: LoginButtonDelegate {
         print("Logged out")
     }
     
+    private func openMainViewController() {
+        dismiss(animated: true)
+    }
+    
+    @objc private func handleCustomFBLogin() {
+        
+    }
 }
