@@ -69,6 +69,15 @@ extension LoginViewController: LoginButtonDelegate {
     }
     
     @objc private func handleCustomFBLogin() {
-        
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["email", "public_profile"], from: self) { result, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let result = result, result.isCancelled {
+                print("Cancelled")
+            } else {
+                self.openMainViewController()
+            }
+        }
     }
 }
