@@ -7,10 +7,11 @@
 
 import UIKit
 import FBSDKCoreKit
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var bgSessionCompletionHandler: (()->())?
     
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
@@ -20,13 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //MARK: Facebook SDK init methods
-    func application(_ application: UIApplication, 
+    func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-            ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-
-            return true
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        FirebaseApp.configure()
+        
+        return true
     }
-
+    
 }
 
