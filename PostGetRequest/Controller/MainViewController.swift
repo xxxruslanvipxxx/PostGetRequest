@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import FacebookCore
 
 private let reuseIdentifier = "Cell"
 private let url = "https://jsonplaceholder.typicode.com/posts"
@@ -45,6 +46,7 @@ class MainViewController: UICollectionViewController {
             self.alert.dismiss(animated: true)
             self.postNotification()
         }
+        checkLoggedIn()
         
     }
     //MARK: - Navigation
@@ -189,4 +191,19 @@ extension MainViewController {
         UNUserNotificationCenter.current().add(request)
         
     }
+}
+
+//MARK: - Facebook SDK
+
+extension MainViewController {
+    
+    private func checkLoggedIn() {
+        if !AccessToken.isCurrentAccessTokenActive {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: false)
+        }
+    }
+    
 }
