@@ -8,6 +8,7 @@
 import UIKit
 import UserNotifications
 import FacebookCore
+import FirebaseAuth
 
 private let reuseIdentifier = "Cell"
 private let url = "https://jsonplaceholder.typicode.com/posts"
@@ -198,12 +199,13 @@ extension MainViewController {
 extension MainViewController {
     
     private func checkLoggedIn() {
-        if !AccessToken.isCurrentAccessTokenActive {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            loginVC.modalPresentationStyle = .fullScreen
-            self.present(loginVC, animated: false)
-        }
+        
+        guard Auth.auth().currentUser == nil else {return}
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC, animated: false)
+        
     }
     
 }

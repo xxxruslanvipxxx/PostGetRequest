@@ -7,6 +7,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import FirebaseAuth
 
 class UserProfileVC: UIViewController {
     
@@ -65,11 +66,17 @@ extension UserProfileVC: LoginButtonDelegate {
     }
     
     private func openLoginViewController() {
-        guard !AccessToken.isCurrentAccessTokenActive else {return}
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC, animated: true)
+        
+        do {
+            try Auth.auth().signOut()
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
     }
     
     @objc private func handleCustomFBLogin() {
