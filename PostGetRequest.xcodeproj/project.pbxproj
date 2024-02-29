@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14067B6A2B90CFE400A7775F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 14067B692B90CFE400A7775F /* FirebaseAuth */; };
 		142EBC0A2B6AC35300A0BADB /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142EBC092B6AC35300A0BADB /* WebViewController.swift */; };
 		142EBC0C2B6AC3A800A0BADB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142EBC0B2B6AC3A800A0BADB /* TableViewController.swift */; };
 		142EBC0E2B6AC81700A0BADB /* CourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142EBC0D2B6AC81700A0BADB /* CourseCell.swift */; };
@@ -97,6 +98,7 @@
 				147195B52B8E72DE005EDE11 /* FirebaseAnalyticsSwift in Frameworks */,
 				14B1481A2B7A7DC500B06F4D /* Alamofire in Frameworks */,
 				14FEA5FA2B868803003D120D /* FacebookCore in Frameworks */,
+				14067B6A2B90CFE400A7775F /* FirebaseAuth in Frameworks */,
 				147195B32B8E72DE005EDE11 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				147195B72B8E72DE005EDE11 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				147195B12B8E72DE005EDE11 /* FirebaseAnalytics in Frameworks */,
@@ -121,6 +123,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14067B682B90CFE400A7775F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		142EBC132B6C0F1E00A0BADB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +185,7 @@
 				14AFB12B2B66AEBC0072E32A /* PostGetRequestTests */,
 				14AFB1352B66AEBC0072E32A /* PostGetRequestUITests */,
 				14AFB1132B66AEBA0072E32A /* Products */,
+				14067B682B90CFE400A7775F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -243,6 +253,7 @@
 				147195B42B8E72DE005EDE11 /* FirebaseAnalyticsSwift */,
 				147195B62B8E72DE005EDE11 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				147195B82B8E72DE005EDE11 /* FirebaseAppCheck */,
+				14067B692B90CFE400A7775F /* FirebaseAuth */,
 			);
 			productName = PostGetRequest;
 			productReference = 14AFB1122B66AEBA0072E32A /* PostGetRequest.app */;
@@ -753,6 +764,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		14067B692B90CFE400A7775F /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 147195AF2B8E72DE005EDE11 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		147195B02B8E72DE005EDE11 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 147195AF2B8E72DE005EDE11 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
