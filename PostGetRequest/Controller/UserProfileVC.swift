@@ -26,6 +26,7 @@ class UserProfileVC: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        
     }
     
     private func setupViews() {
