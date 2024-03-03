@@ -94,7 +94,7 @@ extension UserProfileVC: LoginButtonDelegate {
             guard let uid = Auth.auth().currentUser?.uid else {return}
             
             Database
-                .database(url: "https://networking-test-app-default-rtdb.europe-west1.firebasedatabase.app")
+                .database()
                 .reference()
                 .child("users")
                 .child(uid)

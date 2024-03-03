@@ -130,7 +130,7 @@ extension LoginViewController: LoginButtonDelegate {
         let values = [uid: userData]
         
         Database
-            .database(url: "https://networking-test-app-default-rtdb.europe-west1.firebasedatabase.app")
+            .database()
             .reference()
             .child("users")
             .updateChildValues(values) { error, _ in
