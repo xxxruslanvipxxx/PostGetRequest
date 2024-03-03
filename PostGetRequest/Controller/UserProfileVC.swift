@@ -8,8 +8,22 @@
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class UserProfileVC: UIViewController {
+    
+    
+    @IBOutlet weak var userNameLabel: UILabel!
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .medium
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
     
     lazy var fbLoginButton: UIButton = {
         let fbLoginButton = FBLoginButton()
@@ -25,12 +39,22 @@ class UserProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        userNameLabel.isHidden = true
         setupViews()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchingUserData()
+    }
+    
     private func setupViews() {
         view.addSubview(fbLoginButton)
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: userNameLabel.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: userNameLabel.centerYAnchor).isActive = true
     }
     
 }
@@ -62,6 +86,29 @@ extension UserProfileVC: LoginButtonDelegate {
             print(error.localizedDescription)
         }
         
+    }
+    
+    private func fetchingUserData() {
+        
+        if Auth.auth().currentUser != nil {
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            
+            Database
+                .database(url: "https://networking-test-app-default-rtdb.europe-west1.firebasedatabase.app")
+                .reference()
+                .child("users")
+                .child(uid)
+                .observeSingleEvent(of: .value) { snapshot in
+                    guard let userData = snapshot.value as? [String: Any] else {return}
+                    let currentUser = CurrentUser(uid: uid, data: userData)
+                    self.activityIndicator.stopAnimating()
+                    self.userNameLabel.isHidden = false
+                    self.userNameLabel.text = "\(currentUser?.name ?? "Noname") logged in with Facebook"
+                } withCancel: { error in
+                    print(error.localizedDescription)
+                }
+
+        }
     }
     
 }
