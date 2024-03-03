@@ -8,8 +8,11 @@
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
+    
+    var userProfile: UserProfile?
     
     lazy var fbLoginButton: UIButton = {
         let fbLoginButton = FBLoginButton()
@@ -58,8 +61,6 @@ extension LoginViewController: LoginButtonDelegate {
         }
         guard AccessToken.isCurrentAccessTokenActive else {return}
         singIntoFirebase()
-        fetchFBFields()
-        openMainViewController()
         print("Successfully logged in with facebook...")
         
     }
@@ -82,8 +83,6 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Cancelled")
             } else {
                 self.singIntoFirebase()
-                self.fetchFBFields()
-                self.openMainViewController()
             }
         }
 
@@ -96,15 +95,14 @@ extension LoginViewController: LoginButtonDelegate {
         guard let acessTokenString = acessToken?.tokenString else {return}
         
         let credentials = FacebookAuthProvider.credential(withAccessToken: acessTokenString)
+        
         Auth.auth().signIn(with: credentials) { authResult, error in
             if let error = error {
-                print("Error")
+                print("Error singIntoFirebase")
                 print(error.localizedDescription)
-            } else if let result = authResult {
-                print("Success")
-                print(result.user)
             }
-            
+            print("Success singIntoFirebase")
+            self.fetchFBFields()
         }
     }
     
@@ -119,9 +117,31 @@ extension LoginViewController: LoginButtonDelegate {
             }
             
             guard let result = result as? [String: Any] else {return}
-            print(result)
+            self.userProfile = UserProfile(data: result)
+            self.saveIntoFirebase()
         }
         
     }
 
+    private func saveIntoFirebase() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let userData = ["name": userProfile?.name, "email": userProfile?.email]
+        let values = [uid: userData]
+        
+        Database
+            .database(url: "https://networking-test-app-default-rtdb.europe-west1.firebasedatabase.app")
+            .reference()
+            .child("users")
+            .updateChildValues(values) { error, _ in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            print("Successfully saved user into firebase database")
+            self.openMainViewController()
+        }
+        
+    }
+    
 }
