@@ -9,6 +9,8 @@ import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseCore
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -37,6 +39,14 @@ class LoginViewController: UIViewController {
         return fbButton
     }()
     
+    lazy var googleLoginButton: GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.style = .wide
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleGoogleLogin), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +57,9 @@ class LoginViewController: UIViewController {
     private func setupViews() {
         view.addSubview(fbLoginButton)
         view.addSubview(fbCustomLoginButton)
+        view.addSubview(googleLoginButton)
+        googleLoginButton.topAnchor.constraint(equalTo: fbLoginButton.bottomAnchor, constant: 32).isActive = true
+        googleLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
 
 }
@@ -73,6 +86,7 @@ extension LoginViewController: LoginButtonDelegate {
         dismiss(animated: true)
     }
     
+    //MARK: Objc methods
     @objc private func handleCustomFBLogin() {
         
         let loginManager = LoginManager()
@@ -86,6 +100,10 @@ extension LoginViewController: LoginButtonDelegate {
             }
         }
 
+    }
+    
+    @objc private func handleGoogleLogin() {
+        googleSingIn()
     }
 
     private func singIntoFirebase() {
@@ -142,6 +160,45 @@ extension LoginViewController: LoginButtonDelegate {
             self.openMainViewController()
         }
         
+    }
+    
+}
+
+//MARK: - Google Sing in
+
+extension LoginViewController {
+    
+    private func googleSingIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "error 181 line")
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else {
+                return
+            }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                self.openMainViewController()
+            }
+        }
     }
     
 }

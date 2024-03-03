@@ -2,23 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb716200717354655</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>716200717354655</string>
-    <key>FacebookClientToken</key>
-    <string>bf958492b3bfdfbc30e5bd8d39303596</string>
-    <key>FacebookDisplayName</key>
-    <string>NetworkingTestApp</string>
-    
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb716200717354655</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.47085917368-93vfsf0fudtfqbnqu8ig07ojmhgs7s69</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>716200717354655</string>
+	<key>FacebookClientToken</key>
+	<string>bf958492b3bfdfbc30e5bd8d39303596</string>
+	<key>FacebookDisplayName</key>
+	<string>NetworkingTestApp</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
