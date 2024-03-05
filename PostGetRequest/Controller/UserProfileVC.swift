@@ -9,9 +9,12 @@ import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
 import FirebaseDatabase
+import GoogleSignIn
 
 class UserProfileVC: UIViewController {
     
+    private var provider: String?
+    private var currentUser: CurrentUser?
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -25,15 +28,20 @@ class UserProfileVC: UIViewController {
         return activityIndicator
     }()
     
-    lazy var fbLoginButton: UIButton = {
-        let fbLoginButton = FBLoginButton()
-        fbLoginButton.frame = CGRect(x: 32,
+    lazy var logOutButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 32,
                                      y: view.frame.height - 172,
                                      width: view.frame.width - 64,
                                      height: 28)
-        fbLoginButton.delegate = self
+        button.backgroundColor = UIColor(red: 59/255, green: 89/255, blue: 153/255, alpha: 1)
+        button.setTitle("Log Out", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4
+        button.addTarget(self, action: #selector(logOutButtonHandle), for: .touchUpInside)
         
-        return fbLoginButton
+        return button
     }()
     
     override func viewDidLoad() {
@@ -51,28 +59,22 @@ class UserProfileVC: UIViewController {
     }
     
     private func setupViews() {
-        view.addSubview(fbLoginButton)
+        view.addSubview(logOutButton)
         view.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: userNameLabel.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: userNameLabel.centerYAnchor).isActive = true
     }
     
+    //MARK: Objc methods
+    @objc private func logOutButtonHandle() {
+        singOut()
+    }
+    
 }
 
-//MARK: - Facebook SDK
-extension UserProfileVC: LoginButtonDelegate {
-    
-    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
-        openLoginViewController()
-        print("Logged out")
-        
-    }
+//MARK: - Sign Out
+
+extension UserProfileVC {
     
     private func openLoginViewController() {
         
@@ -100,15 +102,54 @@ extension UserProfileVC: LoginButtonDelegate {
                 .child(uid)
                 .observeSingleEvent(of: .value) { snapshot in
                     guard let userData = snapshot.value as? [String: Any] else {return}
-                    let currentUser = CurrentUser(uid: uid, data: userData)
+                    self.currentUser = CurrentUser(uid: uid, data: userData)
                     self.activityIndicator.stopAnimating()
                     self.userNameLabel.isHidden = false
-                    self.userNameLabel.text = "\(currentUser?.name ?? "Noname") logged in with Facebook"
+                    self.userNameLabel.text = self.getProviderData()
                 } withCancel: { error in
                     print(error.localizedDescription)
                 }
-
         }
+        
+    }
+    
+    private func singOut() {
+        
+        guard let providerData = Auth.auth().currentUser?.providerData else {return}
+        
+        for userInfo in providerData {
+            switch userInfo.providerID {
+            case "facebook.com":
+                LoginManager().logOut()
+                print("User has logged out of Facebook")
+                openLoginViewController()
+            case "google.com":
+                GIDSignIn.sharedInstance.signOut()
+                print("User has logged out of Google")
+                openLoginViewController()
+            default:
+                print("User is signed in with \(userInfo.providerID)")
+            }
+        }
+        
+    }
+    
+    private func getProviderData() -> String {
+        
+        var greetings = ""
+        guard let providerData = Auth.auth().currentUser?.providerData else {return "none"}
+        for userInfo in providerData {
+            switch userInfo.providerID {
+            case "facebook.com":
+                provider = "Facebook"
+            case "google.com":
+                provider = "Google"
+            default:
+                break
+            }
+        }
+        greetings = "\(currentUser?.name ?? "Noname") Logged in with \(provider!)"
+        return greetings
     }
     
 }
