@@ -203,8 +203,9 @@ extension MainViewController {
         guard Auth.auth().currentUser == nil else {return}
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC, animated: false)
+        let navigationController = UINavigationController(rootViewController: loginVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: false)
         
     }
     

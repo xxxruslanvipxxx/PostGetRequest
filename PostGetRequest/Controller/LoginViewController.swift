@@ -47,6 +47,16 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    lazy var signInButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign In with Email", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(handleEmailSignIn), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +70,15 @@ class LoginViewController: UIViewController {
         view.addSubview(googleLoginButton)
         googleLoginButton.topAnchor.constraint(equalTo: fbLoginButton.bottomAnchor, constant: 32).isActive = true
         googleLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        view.addSubview(signInButton)
+        signInButton.topAnchor.constraint(equalTo: fbCustomLoginButton.bottomAnchor, constant: 32).isActive = true
+        signInButton.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        signInButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 32).isActive = true
+        signInButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -32).isActive = true
+    }
+    
+    @objc private func handleEmailSignIn() {
+        performSegue(withIdentifier: "signInSegue", sender: self)
     }
 
 }
