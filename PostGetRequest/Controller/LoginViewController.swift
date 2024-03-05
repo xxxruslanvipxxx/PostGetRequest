@@ -101,10 +101,6 @@ extension LoginViewController: LoginButtonDelegate {
         }
 
     }
-    
-    @objc private func handleGoogleLogin() {
-        googleSingIn()
-    }
 
     private func singIntoFirebase() {
         
@@ -178,7 +174,7 @@ extension LoginViewController {
         // Start the sign in flow!
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
             guard error == nil else {
-                print(error?.localizedDescription ?? "error 181 line")
+                print(error?.localizedDescription ?? "error GIDSignIn")
                 return
             }
             
@@ -188,6 +184,12 @@ extension LoginViewController {
                 return
             }
             
+            if let userName = user.profile?.name, let userEmail = user.profile?.email {
+                let userData = ["name": userName, "email": userEmail]
+                self.userProfile = UserProfile(data: userData)
+            }
+                
+                
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: user.accessToken.tokenString)
             
@@ -196,9 +198,14 @@ extension LoginViewController {
                     print(error.localizedDescription)
                     return
                 }
-                self.openMainViewController()
+                self.saveIntoFirebase()
             }
         }
+    }
+    
+    //MARK: Objc methods
+    @objc private func handleGoogleLogin() {
+        googleSingIn()
     }
     
 }
