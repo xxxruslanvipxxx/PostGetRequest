@@ -412,6 +412,7 @@
         <segue reference="o4W-JB-Jaf"/>
         <segue reference="o7g-xl-PKM"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="book" catalog="system" width="128" height="99"/>
         <image name="person" catalog="system" width="128" height="121"/>
