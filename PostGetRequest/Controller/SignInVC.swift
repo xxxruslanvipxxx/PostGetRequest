@@ -81,11 +81,22 @@ class SignInVC: UIViewController {
         return label
     }()
     
+    lazy var emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Email"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Enter email"
+        textField.placeholder = "example@mail.com"
         textField.textColor = .black
         textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -97,11 +108,22 @@ class SignInVC: UIViewController {
         return textField
     }()
     
+    lazy var passwordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Password"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-        textField.placeholder = "Enter password"
+        textField.placeholder = "12345678"
         textField.textColor = .black
         textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -140,27 +162,37 @@ class SignInVC: UIViewController {
     }()
     
     private func setupView() {
+        
         view.addSubview(signInLabel)
+        view.addSubview(emailLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordLabel)
+        view.addSubview(passwordTextField)
+        view.addSubview(signUpButton)
+        view.addSubview(continueButton)
+        
         signInLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100).isActive = true
         signInLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
         signInLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        
-        view.addSubview(emailTextField)
-        emailTextField.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20).isActive = true
+
+        emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20).isActive = true
+        emailLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor).isActive = true
+
+        emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
         emailTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        
-        view.addSubview(passwordTextField)
-        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20).isActive = true
+
+        passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20).isActive = true
+        passwordLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor).isActive = true
+
+        passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
         passwordTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        
-        view.addSubview(signUpButton)
+
         signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20).isActive = true
         signUpButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
-        view.addSubview(continueButton)
         continueButton.bottomAnchor.constraint(equalTo: self.view.keyboardLayoutGuide.topAnchor, constant: -40).isActive = true
         continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         continueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
