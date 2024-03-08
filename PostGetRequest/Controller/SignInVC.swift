@@ -8,21 +8,68 @@
 import UIKit
 
 class SignInVC: UIViewController {
-
-    lazy var continueButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitle("Continue", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.layer.cornerRadius = 4
-        button.alpha = 0.5
-        button.addTarget(self, action: #selector(handleContinueButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
     
+    //MARK: Lifecycle methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.tintColor = .black
+        setupView()
+        initializeHideKeyboard()
+    }
+    
+    //MARK: Methods
+    
+    private func initializeHideKeyboard() {
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(gestureRecognizer)
+        
+    }
+    
+    private func setContinueButton(enabled: Bool) {
+        
+        if enabled {
+            continueButton.isEnabled = true
+            continueButton.alpha = 1
+        } else {
+            continueButton.isEnabled = false
+            continueButton.alpha = 0.5
+        }
+        
+    }
+    
+    //MARK: Objc methods
+    
+    @objc private func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    @objc private func textFieldChanged() {
+        
+        guard 
+            let email = self.emailTextField.text,
+            let password = self.passwordTextField.text
+        else { return }
+        
+        let formFilled = !email.isEmpty && !password.isEmpty
+        
+        self.setContinueButton(enabled: formFilled)
+        
+    }
+    
+    @objc private func handleSignUpButton() {
+        performSegue(withIdentifier: "signUpSegue", sender: self)
+    }
+    
+    @objc private func handleContinueButton() {
+        view.endEditing(true)
+        print("Continue")
+    }
+    
+    //MARK: UI Setup
+
     lazy var signInLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -38,10 +85,13 @@ class SignInVC: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-        textField.placeholder = "email"
+        textField.placeholder = "Enter email"
         textField.textColor = .black
         textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tag = 1
+        textField.returnKeyType = .continue
+        textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         
         return textField
@@ -51,10 +101,13 @@ class SignInVC: UIViewController {
         let textField = UITextField()
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-        textField.placeholder = "password"
+        textField.placeholder = "Enter password"
         textField.textColor = .black
         textField.clearButtonMode = .whileEditing
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.tag = 2
+        textField.returnKeyType = .continue
+        textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         
         return textField
@@ -71,18 +124,20 @@ class SignInVC: UIViewController {
         return button
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    lazy var continueButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitle("Continue", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 4
+        button.alpha = 0.5
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(handleContinueButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
-        self.navigationController?.navigationBar.tintColor = .black
-        setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
+        return button
+    }()
     
     private func setupView() {
         view.addSubview(signInLabel)
@@ -106,28 +161,26 @@ class SignInVC: UIViewController {
         signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
         view.addSubview(continueButton)
-        continueButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true
+        continueButton.bottomAnchor.constraint(equalTo: self.view.keyboardLayoutGuide.topAnchor, constant: -40).isActive = true
         continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         continueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         continueButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
     }
-    
-    @objc private func keyboardWillAppear() {  // FIX THIS MESS
-        continueButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = false
-        continueButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -340).isActive = true
-        continueButton.layoutIfNeeded()
-    }
-    
-    @objc private func textFieldChanged() {
-        
-    }
-    
-    @objc private func handleSignUpButton() {
-        performSegue(withIdentifier: "signUpSegue", sender: self)
-    }
-    
-    @objc private func handleContinueButton() {
-        
-    }
 
+}
+
+//MARK: - UITextFieldDelegate
+
+extension SignInVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if let nextTextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+    }
+    
 }
