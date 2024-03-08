@@ -171,32 +171,33 @@ class SignInVC: UIViewController {
         view.addSubview(signUpButton)
         view.addSubview(continueButton)
         
-        signInLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100).isActive = true
-        signInLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
-        signInLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([signInLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+                                     signInLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
+                                     signInLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
+    
+        NSLayoutConstraint.activate([emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20),
+                                     emailLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor)])
 
-        emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20).isActive = true
-        emailLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor).isActive = true
+        NSLayoutConstraint.activate([emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
+                                     emailTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
+                                     emailTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
 
-        emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
-        emailTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+                                     passwordLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)])
 
-        passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20).isActive = true
-        passwordLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor).isActive = true
+        NSLayoutConstraint.activate([passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8),
+                                     passwordTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
+                                     passwordTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
 
-        passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8).isActive = true
-        passwordTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
-        passwordTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-
-        signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20).isActive = true
-        signUpButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4).isActive = true
-        signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+                                     signUpButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4),
+                                     signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
         
-        continueButton.bottomAnchor.constraint(equalTo: self.view.keyboardLayoutGuide.topAnchor, constant: -40).isActive = true
-        continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        continueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        continueButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5).isActive = true
+        NSLayoutConstraint.activate([continueButton.bottomAnchor.constraint(equalTo: self.view.keyboardLayoutGuide.topAnchor, constant: -40),
+                                     continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                                     continueButton.heightAnchor.constraint(equalToConstant: 50),
+                                     continueButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)])
+
     }
 
 }
