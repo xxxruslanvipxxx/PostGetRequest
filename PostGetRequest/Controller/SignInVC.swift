@@ -65,11 +65,25 @@ class SignInVC: UIViewController {
     
     @objc private func handleContinueButton() {
         view.endEditing(true)
+        // add signUp.isEnabled = false later
+        setContinueButton(enabled: false)
+        continueButton.setTitle("", for: .normal)
+        activityIndicator.startAnimating()
+        
         print("Continue")
     }
     
     //MARK: UI Setup
 
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .black
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return activityIndicator
+    }()
+    
     lazy var signInLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -170,6 +184,7 @@ class SignInVC: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(signUpButton)
         view.addSubview(continueButton)
+        continueButton.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([signInLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
                                      signInLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
@@ -197,6 +212,9 @@ class SignInVC: UIViewController {
                                      continueButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                                      continueButton.heightAnchor.constraint(equalToConstant: 50),
                                      continueButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5)])
+        
+        NSLayoutConstraint.activate([activityIndicator.centerXAnchor.constraint(equalTo: continueButton.centerXAnchor),
+                                     activityIndicator.centerYAnchor.constraint(equalTo: continueButton.centerYAnchor)])
 
     }
 
