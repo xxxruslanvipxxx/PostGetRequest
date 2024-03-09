@@ -166,6 +166,7 @@ class SignUpVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tag = 3
         textField.returnKeyType = .continue
+        textField.isSecureTextEntry = true
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         
@@ -193,6 +194,7 @@ class SignUpVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tag = 4
         textField.returnKeyType = .continue
+        textField.isSecureTextEntry = true
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         

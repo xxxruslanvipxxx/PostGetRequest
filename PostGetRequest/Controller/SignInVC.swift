@@ -143,6 +143,7 @@ class SignInVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.tag = 2
         textField.returnKeyType = .continue
+        textField.isSecureTextEntry = true
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         
