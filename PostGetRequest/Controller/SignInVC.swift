@@ -175,21 +175,21 @@ class SignInVC: UIViewController {
                                      signInLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
                                      signInLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
     
-        NSLayoutConstraint.activate([emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 20),
+        NSLayoutConstraint.activate([emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 16),
                                      emailLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor)])
 
         NSLayoutConstraint.activate([emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8),
                                      emailTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
                                      emailTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
 
-        NSLayoutConstraint.activate([passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+        NSLayoutConstraint.activate([passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16),
                                      passwordLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor)])
 
         NSLayoutConstraint.activate([passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8),
                                      passwordTextField.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
                                      passwordTextField.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
 
-        NSLayoutConstraint.activate([signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+        NSLayoutConstraint.activate([signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
                                      signUpButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.4),
                                      signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)])
         
