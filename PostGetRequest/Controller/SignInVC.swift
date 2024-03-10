@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignInVC: UIViewController {
     
@@ -40,6 +41,39 @@ class SignInVC: UIViewController {
         
     }
     
+    private func setViewsInProcess(inProcess: Bool) {
+        if inProcess {
+            signUpButton.isEnabled = false
+            setContinueButton(enabled: false)
+            continueButton.setTitle("", for: .normal)
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            continueButton.setTitle("Continue", for: .normal)
+            setContinueButton(enabled: true)
+            signUpButton.isEnabled = true
+        }
+    }
+    
+    private func signIn() {
+        
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text
+        else {return}
+        
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print(error.localizedDescription)
+                self.setViewsInProcess(inProcess: false)
+                return
+            }
+            
+            print("Successfully logged in with email")
+            self.presentingViewController?.dismiss(animated: true)
+        }
+        
+    }
+    
     //MARK: Objc methods
     
     @objc private func dismissKeyboard() {
@@ -64,13 +98,11 @@ class SignInVC: UIViewController {
     }
     
     @objc private func handleContinueButton() {
-        view.endEditing(true)
-        // add signUp.isEnabled = false later
-        setContinueButton(enabled: false)
-        continueButton.setTitle("", for: .normal)
-        activityIndicator.startAnimating()
         
-        print("Continue")
+        view.endEditing(true)
+        setViewsInProcess(inProcess: true)
+        signIn()
+
     }
     
     //MARK: UI Setup
