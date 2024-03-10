@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignUpVC: UIViewController {
 
@@ -55,18 +56,58 @@ class SignUpVC: UIViewController {
             let confirmPassword = self.confirmPasswordTextField.text
         else { return }
         
-        let formFilled = !username.isEmpty && !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty
+        let formFilled = !username.isEmpty && !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty && password == confirmPassword
         
         self.setContinueButton(enabled: formFilled)
         
     }
     
     @objc private func handleContinueButton() {
+        
         view.endEditing(true)
         setContinueButton(enabled: false)
         continueButton.setTitle("", for: .normal)
         activityIndicator.startAnimating()
-        print("Continue")
+        
+        guard let userName = usernameTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text
+        else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                
+                self.setContinueButton(enabled: true)
+                self.continueButton.setTitle("Continue", for: .normal)
+                self.activityIndicator.stopAnimating()
+                
+                return
+            }
+            
+            print("Successfully logged into Firebase with email")
+            
+            if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+                changeRequest.displayName = userName
+                changeRequest.commitChanges { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        
+                        self.setContinueButton(enabled: true)
+                        self.continueButton.setTitle("Continue", for: .normal)
+                        self.activityIndicator.stopAnimating()
+                        
+                    }
+                    
+                    print("User display name changed!")
+                    self.presentingViewController?.presentedViewController?.presentedViewController?.dismiss(animated: true)
+                    
+                }
+            }
+            
+        }
+        
     }
     
     //MARK: UI Setup
