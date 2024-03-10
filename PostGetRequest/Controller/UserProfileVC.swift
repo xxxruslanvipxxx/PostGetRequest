@@ -94,22 +94,38 @@ extension UserProfileVC {
     private func fetchingUserData() {
         
         if Auth.auth().currentUser != nil {
-            guard let uid = Auth.auth().currentUser?.uid else {return}
             
-            Database
-                .database()
-                .reference()
-                .child("users")
-                .child(uid)
-                .observeSingleEvent(of: .value) { snapshot in
-                    guard let userData = snapshot.value as? [String: Any] else {return}
-                    self.currentUser = CurrentUser(uid: uid, data: userData)
-                    self.activityIndicator.stopAnimating()
-                    self.userNameLabel.isHidden = false
-                    self.userNameLabel.text = self.getProviderData()
-                } withCancel: { error in
-                    print(error.localizedDescription)
-                }
+            guard let uid = Auth.auth().currentUser?.uid,
+                  let email = Auth.auth().currentUser?.email
+            else {return}
+            
+            if let userName = Auth.auth().currentUser?.displayName,
+               let email = Auth.auth().currentUser?.email,
+               let data = ["email": email, "name": userName] as? [String: Any] {
+                
+                self.currentUser = CurrentUser(uid: uid, data: data)
+                self.activityIndicator.stopAnimating()
+                self.userNameLabel.isHidden = false
+                self.userNameLabel.text = self.getProviderData()
+                
+            } else {
+                
+                Database
+                    .database()
+                    .reference()
+                    .child("users")
+                    .child(uid)
+                    .observeSingleEvent(of: .value) { snapshot in
+                        guard let userData = snapshot.value as? [String: Any] else {return}
+                        self.currentUser = CurrentUser(uid: uid, data: userData)
+                        self.activityIndicator.stopAnimating()
+                        self.userNameLabel.isHidden = false
+                        self.userNameLabel.text = self.getProviderData()
+                    } withCancel: { error in
+                        print(error.localizedDescription)
+                    }
+                
+            }
         }
         
     }
@@ -128,6 +144,10 @@ extension UserProfileVC {
                 GIDSignIn.sharedInstance.signOut()
                 print("User has logged out of Google")
                 openLoginViewController()
+            case "password":
+                try! Auth.auth().signOut()
+                print("User did sign out")
+                openLoginViewController()
             default:
                 print("User is signed in with \(userInfo.providerID)")
             }
@@ -145,6 +165,8 @@ extension UserProfileVC {
                 provider = "Facebook"
             case "google.com":
                 provider = "Google"
+            case "password":
+                provider = "Email"
             default:
                 break
             }

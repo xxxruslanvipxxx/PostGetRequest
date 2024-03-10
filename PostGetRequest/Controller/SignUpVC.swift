@@ -101,7 +101,7 @@ class SignUpVC: UIViewController {
                     }
                     
                     print("User display name changed!")
-                    self.presentingViewController?.presentedViewController?.presentedViewController?.dismiss(animated: true)
+                    self.presentingViewController?.presentedViewController?.dismiss(animated: true)
                     
                 }
             }
